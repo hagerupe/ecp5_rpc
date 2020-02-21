@@ -1,2 +1,5 @@
 *.vh
 *.svf
+*.json
+*.bit
+*.config
