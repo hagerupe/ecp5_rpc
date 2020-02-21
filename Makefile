@@ -1,5 +1,5 @@
 GCD.v:
-	sbt 'runMain protobuf.ToVerilog'
+	sbt 'runMain protobuf.KeyDecoderGenerate'
 
 test:
-	sbt 'test:runMain protobuf.VarintMain --generate-vcd-output off'
+	sbt 'test:runMain protobuf.VarintMain --backend-name verilator'
