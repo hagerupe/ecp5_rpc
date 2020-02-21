@@ -22,9 +22,9 @@ class KeyDecoder(decode_bytes: Int) extends Module {
   val io = IO(new Bundle{
     val input        = Input(Vec(decode_bytes, UInt(8.W)))
     val wire_type    = Output(UInt(3.W))
-    val field_number = Output(UInt((decode_bytes * 8).W))
+    val field_number = Output(UInt(8.W))
     val bytes_read   = Output(UInt(8.W))
-    val value_size   = Output(UInt(32.W))
+    val value_size   = Output(UInt(16.W))
   })
 
   // Decode to integer
@@ -66,5 +66,5 @@ class KeyDecoder(decode_bytes: Int) extends Module {
 }
 
 object KeyDecoderGenerate extends App {
-  chisel3.Driver.execute(args, () => new KeyDecoder(8))
+  chisel3.Driver.execute(args, () => new KeyDecoder(4))
 }

@@ -1,4 +1,6 @@
-GCD.v:
+all: KeyDecoder.v
+
+KeyDecoder.v:
 	sbt 'runMain protobuf.KeyDecoderGenerate'
 
 test:
