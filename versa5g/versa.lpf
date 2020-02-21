@@ -28,27 +28,29 @@ LOCATE COMP "io_value_size[1]" SITE "B3";
 LOCATE COMP "io_value_size[2]" SITE "B4";
 LOCATE COMP "io_value_size[3]" SITE "B5";
 LOCATE COMP "io_value_size[4]" SITE "B6";
-LOCATE COMP "io_value_size[5]" SITE "B7";
+LOCATE COMP "io_value_size[5]" SITE "D5";
 LOCATE COMP "io_value_size[6]" SITE "B8";
 LOCATE COMP "io_value_size[7]" SITE "B9";
 LOCATE COMP "io_value_size[8]" SITE "B10";
 LOCATE COMP "io_value_size[9]" SITE "B11";
 LOCATE COMP "io_value_size[10]" SITE "B12";
 LOCATE COMP "io_value_size[11]" SITE "B13";
-LOCATE COMP "io_value_size[12]" SITE "B14";
+LOCATE COMP "io_value_size[12]" SITE "D6";
 LOCATE COMP "io_value_size[13]" SITE "B15";
 LOCATE COMP "io_value_size[14]" SITE "B16";
 LOCATE COMP "io_value_size[15]" SITE "B17";`
 
 
-LOCATE COMP "io_input_0[0]" SITE "B18";
-LOCATE COMP "io_input_0[1]" SITE "B19";
-LOCATE COMP "io_input_0[2]" SITE "B20";
-LOCATE COMP "io_input_0[3]" SITE "C1";
-LOCATE COMP "io_input_0[4]" SITE "C2";
-LOCATE COMP "io_input_0[5]" SITE "C3";
-LOCATE COMP "io_input_0[6]" SITE "C4";
-LOCATE COMP "io_input_0[7]" SITE "C5";
+LOCATE COMP "io_input_0[0]" SITE "E4";
+LOCATE COMP "io_input_0[1]" SITE "E6";
+LOCATE COMP "io_input_0[2]" SITE "D7";
+LOCATE COMP "io_input_0[3]" SITE "D8";
+LOCATE COMP "io_input_0[4]" SITE "D9";
+LOCATE COMP "io_input_0[5]" SITE "E1";
+LOCATE COMP "io_input_0[6]" SITE "E2";
+LOCATE COMP "io_input_0[7]" SITE "E3";
+
+IOBUF PORT "io_input_0[0]" PULLMODE=UP IO_TYPE=LVCMOS33;
 
 LOCATE COMP "io_input_1[0]" SITE "B18";
 LOCATE COMP "io_input_1[1]" SITE "B19";

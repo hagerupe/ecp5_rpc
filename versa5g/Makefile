@@ -11,7 +11,7 @@ pattern.vh: make_14seg.py text.in
 	yosys -p "synth_ecp5 -json $@" $<
 
 %_out.config: %.json
-	nextpnr-ecp5 --json $< --lpf ${CONSTR} --textcfg $@ --um5g-45k --package CABGA381
+	nextpnr-ecp5 --json $< --lpf ${CONSTR} --lpf-allow-unconstrained --textcfg $@ --um5g-45k --package CABGA381
 
 %.bit: %_out.config
 	ecppack --svf-rowsize 100000 --svf ${PROJ}.svf $< $@

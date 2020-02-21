@@ -1,7 +1,7 @@
 `include "KeyDecoder.v"
 
 module top(input clk,
-           input [7:0] io_input_0,
+           input  [7:0]  io_input_0,
            input  [7:0]  io_input_1,
            input  [7:0]  io_input_2,
            input  [7:0]  io_input_3,
@@ -24,5 +24,4 @@ module top(input clk,
         .io_value_size(io_value_size)
     );
 
-endmodule : top
-
+endmodule
