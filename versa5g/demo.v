@@ -11,7 +11,8 @@ module top(input clk, output [7:0] led, output [13:0] disp);
     end
     
     `include "pattern.vh"
-    
+    `include "KeyDecoder.v"
+
     reg [$clog2(pat_len):0] pat_ctr;
     always @ ( posedge clk ) begin
         if (clk_div) begin
