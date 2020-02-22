@@ -30,6 +30,8 @@ class OffsetMap(bytes: Int) extends Module {
     io.output(i) := Cat(io.input) >> ((bytes.U - i.U - 1.U - io.offset) * 8.U)
   }
 
+  /*
   printf("OffsetMap:io.input:       %d\n", Cat(io.input))
   printf("OffsetMap:io.output:      %d\n", Cat(io.output))
+  */
 }

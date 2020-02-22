@@ -16,6 +16,65 @@
 package protobuf
 
 import chisel3._
+import chisel3.util.Cat
+
+class ProtobufKey {
+  val wire_type    = Wire(UInt(3.W))
+  val field_number = Wire(UInt(8.W))
+  val value_size   = Wire(UInt(16.W))
+  val key_size     = Wire(UInt(8.W))
+
+  def toPrintable: Printable = {
+    p"ProtobufKey:\n" +
+      p"  wire_type    : ${wire_type}\n" +
+      p"  field_number : ${field_number}\n" +
+      p"  key_size   : ${key_size}\n" +
+      p"  value_size   : ${value_size}\n"
+  }
+}
+
+object ProtobufKey {
+  def apply(in: Vec[UInt]): ProtobufKey = {
+
+    val key = new ProtobufKey()
+    val decode_bytes = in.length
+
+    // Decode to integer
+    val varint_decode = Module(new VarintDecoder(decode_bytes))
+    val raw_key = Wire(UInt((decode_bytes * 8).W))
+    varint_decode.io.input := in
+    raw_key := varint_decode.io.output
+
+    key.wire_type := raw_key
+    key.field_number := raw_key >> 3
+
+
+    val offset_map = Module(new OffsetMap(decode_bytes))
+    offset_map.io.offset := varint_decode.io.bytes_read
+    offset_map.io.input := in
+    val decoded_length = DecodeVarint(offset_map.io.output)
+
+    {
+      key.key_size := varint_decode.io.bytes_read
+      key.value_size := 0.U
+      when (0.U === key.wire_type){ // Varint
+        key.value_size := decoded_length._2
+      }
+      when (1.U === key.wire_type) { // 64 bit
+        key.value_size := 8.U
+      }
+      when (2.U === key.wire_type) { // Length delimited
+        key.key_size := decoded_length._2 + varint_decode.io.bytes_read
+        key.value_size := decoded_length._1
+      }
+      when (5.U === key.wire_type) { // 32 bit
+        key.value_size := 4.U
+      }
+    }
+
+    key
+  }
+}
 
 class KeyDecoder(decode_bytes: Int) extends Module {
 
@@ -23,48 +82,13 @@ class KeyDecoder(decode_bytes: Int) extends Module {
     val input        = Input(Vec(decode_bytes, UInt(8.W)))
     val wire_type    = Output(UInt(3.W))
     val field_number = Output(UInt(8.W))
-    val bytes_read   = Output(UInt(8.W))
+    val key_size     = Output(UInt(8.W))
     val value_size   = Output(UInt(16.W))
   })
 
-  // Decode to integer
-  val varint_decode = Module(new VarintDecoder(decode_bytes))
-  val raw_key = Wire(UInt((decode_bytes * 8).W))
-  varint_decode.io.input := io.input
-  raw_key := varint_decode.io.output
-
-  io.wire_type := raw_key
-  io.field_number := raw_key >> 3
-
-  val length_varint_decoder = Module(new VarintDecoder(decode_bytes))
-  val offset_map = Module(new OffsetMap(decode_bytes))
-  offset_map.io.offset := varint_decode.io.bytes_read
-  offset_map.io.input := io.input
-  length_varint_decoder.io.input := offset_map.io.output
-
-  {
-    io.bytes_read := varint_decode.io.bytes_read
-    io.value_size := 0.U
-    when (0.U === io.wire_type){ // Varint
-      io.value_size := length_varint_decoder.io.bytes_read
-    }
-    when (1.U === io.wire_type) { // 64 bit
-      io.value_size := 8.U
-    }
-    when (2.U === io.wire_type) { // Length delimited
-      io.bytes_read := varint_decode.io.output
-    }
-    when (5.U === io.wire_type) { // 32 bit
-      io.value_size := 4.U
-    }
-  }
-
-  printf("KeyDecoder:io.wire_type: %d\n", io.wire_type)
-  printf("KeyDecoder:io.field_number: %d\n", io.field_number)
-  printf("KeyDecoder:io.bytes_read: %d\n", io.bytes_read)
-  printf("KeyDecoder:io.value_size: %d\n", io.value_size)
-}
-
-object KeyDecoderGenerate extends App {
-  chisel3.Driver.execute(args, () => new KeyDecoder(4))
+  val key = ProtobufKey(io.input)
+  io.wire_type := key.wire_type
+  io.field_number := key.field_number
+  io.key_size := key.key_size
+  io.value_size := key.value_size
 }

@@ -1,0 +1,6 @@
+message Test1 {
+    optional uint32 int = 1;
+    optional uint64 long = 2;
+    optional string varchar = 3;
+    optional float float = 4;
+}
