@@ -19,7 +19,7 @@ object VarintMain extends App {
     .withVarchar("DEADBEEF")
   val bytes = msg.toByteArray
 
-  assert(iotesters.Driver.execute(args, () => new RingBuffer(4, 10)) {
+  /*assert(iotesters.Driver.execute(args, () => new RingBuffer(4, 10)) {
     c => new RingBufferTester(c)
   })
 
@@ -33,22 +33,15 @@ object VarintMain extends App {
 
   assert(iotesters.Driver.execute(args, () => new KeyDecoder(8)) {
     c => new KeyDecoderUnitTester(c)
-  })
+  })*/
 
   assert(iotesters.Driver.execute(args, () => new Top(add_bit_width, word_byte_ct, bytes)) {
     c => new TopTester(c)
   })
-
 }
 
 class TopTester(t: Top) extends PeekPokeTester(t) {
-  step(1)
-
-  step(1)
-
-  step(1)
-
-  step(1)
+  step(10)
 }
 
 class RingBufferTester(rb: RingBuffer) extends PeekPokeTester(rb) {

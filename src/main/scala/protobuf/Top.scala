@@ -23,8 +23,27 @@ class Top(add_bit_width: Int,
           bytes: Array[Byte]) extends Module {
 
   val io = IO(new Bundle{
-
+    val in1  = Input(UInt(2.W))
+    val in2  = Input(UInt(2.W))
+    val out1 = Output(UInt(2.W))
   })
+
+  val producer0 = Wire(Flipped(Decoupled(UInt(2.W))))
+  val producer1 = Wire(Flipped(Decoupled(UInt(2.W))))
+  val consumer = Wire(Decoupled(UInt(2.W)))
+
+  val arb = Module(new Arbiter(UInt(), 2))
+  arb.io.in(0) <> producer0
+  arb.io.in(1) <> producer1
+  consumer <> arb.io.out
+
+  producer0.bits := 1.U
+  producer1.bits := io.in1
+  producer0.valid := 0.B
+  producer1.valid := io.in2
+  consumer.ready := 1.B
+  io.out1 := consumer.bits
+
 
   val abs_read_addr = RegInit(0.U(add_bit_width.W))
 
