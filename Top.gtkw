@@ -1,0 +1,37 @@
+[*]
+[*] GTKWave Analyzer v3.3.101 (w)1999-2019 BSI
+[*] Wed Feb 26 16:56:58 2020
+[*]
+[dumpfile] "/home/hagerupe/RTL/ecp5_rpc/Top.vcd"
+[dumpfile_mtime] "Mon Feb 24 20:01:39 2020"
+[dumpfile_size] 24894
+[savefile] "/home/hagerupe/RTL/ecp5_rpc/Top.gtkw"
+[timestart] 10
+[size] 3840 1936
+[pos] -1 -1
+*-1.473931 32 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[sst_width] 515
+[signals_width] 574
+[sst_expanded] 1
+[sst_vpaned_height] 584
+@28
+TOP.clock
+TOP.reset
+@22
+TOP.io_fieldNumber[7:0]
+TOP.io_keySize[7:0]
+TOP.io_valueSize[15:0]
+@28
+TOP.io_wireType[2:0]
+TOP.io_valid
+@23
+TOP.Top.memory_io_readAddress_bits[9:0]
+@800022
+#{TOP.Top.memory_io_readData_bits_[0:3][7:0]} (0)TOP.Top.memory_io_readData_bits_0[7:0] (1)TOP.Top.memory_io_readData_bits_0[7:0] (2)TOP.Top.memory_io_readData_bits_0[7:0] (3)TOP.Top.memory_io_readData_bits_0[7:0] (4)TOP.Top.memory_io_readData_bits_0[7:0] (5)TOP.Top.memory_io_readData_bits_0[7:0] (6)TOP.Top.memory_io_readData_bits_0[7:0] (7)TOP.Top.memory_io_readData_bits_0[7:0] (0)TOP.Top.memory_io_readData_bits_1[7:0] (1)TOP.Top.memory_io_readData_bits_1[7:0] (2)TOP.Top.memory_io_readData_bits_1[7:0] (3)TOP.Top.memory_io_readData_bits_1[7:0] (4)TOP.Top.memory_io_readData_bits_1[7:0] (5)TOP.Top.memory_io_readData_bits_1[7:0] (6)TOP.Top.memory_io_readData_bits_1[7:0] (7)TOP.Top.memory_io_readData_bits_1[7:0] (0)TOP.Top.memory_io_readData_bits_2[7:0] (1)TOP.Top.memory_io_readData_bits_2[7:0] (2)TOP.Top.memory_io_readData_bits_2[7:0] (3)TOP.Top.memory_io_readData_bits_2[7:0] (4)TOP.Top.memory_io_readData_bits_2[7:0] (5)TOP.Top.memory_io_readData_bits_2[7:0] (6)TOP.Top.memory_io_readData_bits_2[7:0] (7)TOP.Top.memory_io_readData_bits_2[7:0] (0)TOP.Top.memory_io_readData_bits_3[7:0] (1)TOP.Top.memory_io_readData_bits_3[7:0] (2)TOP.Top.memory_io_readData_bits_3[7:0] (3)TOP.Top.memory_io_readData_bits_3[7:0] (4)TOP.Top.memory_io_readData_bits_3[7:0] (5)TOP.Top.memory_io_readData_bits_3[7:0] (6)TOP.Top.memory_io_readData_bits_3[7:0] (7)TOP.Top.memory_io_readData_bits_3[7:0]
+@1001200
+-group_end
+@28
+TOP.Top.memory_io_readData_valid
+[pattern_trace] 1
+[pattern_trace] 0

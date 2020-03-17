@@ -1,0 +1,58 @@
+[*]
+[*] GTKWave Analyzer v3.3.101 (w)1999-2019 BSI
+[*] Mon Feb 24 19:43:53 2020
+[*]
+[dumpfile] "/home/hagerupe/RTL/ecp5_rpc/UnalignedMemoryController.vcd"
+[dumpfile_mtime] "Mon Feb 24 19:42:25 2020"
+[dumpfile_size] 20520
+[savefile] "/home/hagerupe/RTL/ecp5_rpc/UnalignedMemoryController.gtkw"
+[timestart] 10
+[size] 3840 1936
+[pos] -1 -1
+*-1.267480 15 17 19 21 23 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.UnalignedMemoryController.
+[sst_width] 388
+[signals_width] 350
+[sst_expanded] 1
+[sst_vpaned_height] 584
+@28
+[color] 3
+TOP.UnalignedMemoryController.clock
+[color] 3
+TOP.UnalignedMemoryController.reset
+@800200
+-ReadAddress
+@24
+[color] 1
++{readAddr_bits} TOP.io_readAddress_bits[9:0]
+@28
+[color] 1
+TOP.io_readAddress_ready
+@29
+[color] 1
+TOP.io_readAddress_valid
+@1000200
+-ReadAddress
+@800200
+-ReadData
+@800022
++{readData_bits} #{TOP.io_readData_bits_[0:3][7:0]} (0)TOP.io_readData_bits_0[7:0] (1)TOP.io_readData_bits_0[7:0] (2)TOP.io_readData_bits_0[7:0] (3)TOP.io_readData_bits_0[7:0] (4)TOP.io_readData_bits_0[7:0] (5)TOP.io_readData_bits_0[7:0] (6)TOP.io_readData_bits_0[7:0] (7)TOP.io_readData_bits_0[7:0] (0)TOP.io_readData_bits_1[7:0] (1)TOP.io_readData_bits_1[7:0] (2)TOP.io_readData_bits_1[7:0] (3)TOP.io_readData_bits_1[7:0] (4)TOP.io_readData_bits_1[7:0] (5)TOP.io_readData_bits_1[7:0] (6)TOP.io_readData_bits_1[7:0] (7)TOP.io_readData_bits_1[7:0] (0)TOP.io_readData_bits_2[7:0] (1)TOP.io_readData_bits_2[7:0] (2)TOP.io_readData_bits_2[7:0] (3)TOP.io_readData_bits_2[7:0] (4)TOP.io_readData_bits_2[7:0] (5)TOP.io_readData_bits_2[7:0] (6)TOP.io_readData_bits_2[7:0] (7)TOP.io_readData_bits_2[7:0] (0)TOP.io_readData_bits_3[7:0] (1)TOP.io_readData_bits_3[7:0] (2)TOP.io_readData_bits_3[7:0] (3)TOP.io_readData_bits_3[7:0] (4)TOP.io_readData_bits_3[7:0] (5)TOP.io_readData_bits_3[7:0] (6)TOP.io_readData_bits_3[7:0] (7)TOP.io_readData_bits_3[7:0]
+@1001200
+-group_end
+@28
++{readData_ready} TOP.io_readData_ready
+TOP.io_readData_valid
+@1000200
+-ReadData
+@24
+TOP.UnalignedMemoryController.state[1:0]
+TOP.UnalignedMemoryController.readUAddress[9:0]
+@800022
+#{readLast} (0)TOP.UnalignedMemoryController.readLast_0[7:0] (1)TOP.UnalignedMemoryController.readLast_0[7:0] (2)TOP.UnalignedMemoryController.readLast_0[7:0] (3)TOP.UnalignedMemoryController.readLast_0[7:0] (4)TOP.UnalignedMemoryController.readLast_0[7:0] (5)TOP.UnalignedMemoryController.readLast_0[7:0] (6)TOP.UnalignedMemoryController.readLast_0[7:0] (7)TOP.UnalignedMemoryController.readLast_0[7:0] (0)TOP.UnalignedMemoryController.readLast_1[7:0] (1)TOP.UnalignedMemoryController.readLast_1[7:0] (2)TOP.UnalignedMemoryController.readLast_1[7:0] (3)TOP.UnalignedMemoryController.readLast_1[7:0] (4)TOP.UnalignedMemoryController.readLast_1[7:0] (5)TOP.UnalignedMemoryController.readLast_1[7:0] (6)TOP.UnalignedMemoryController.readLast_1[7:0] (7)TOP.UnalignedMemoryController.readLast_1[7:0] (0)TOP.UnalignedMemoryController.readLast_2[7:0] (1)TOP.UnalignedMemoryController.readLast_2[7:0] (2)TOP.UnalignedMemoryController.readLast_2[7:0] (3)TOP.UnalignedMemoryController.readLast_2[7:0] (4)TOP.UnalignedMemoryController.readLast_2[7:0] (5)TOP.UnalignedMemoryController.readLast_2[7:0] (6)TOP.UnalignedMemoryController.readLast_2[7:0] (7)TOP.UnalignedMemoryController.readLast_2[7:0] (0)TOP.UnalignedMemoryController.readLast_3[7:0] (1)TOP.UnalignedMemoryController.readLast_3[7:0] (2)TOP.UnalignedMemoryController.readLast_3[7:0] (3)TOP.UnalignedMemoryController.readLast_3[7:0] (4)TOP.UnalignedMemoryController.readLast_3[7:0] (5)TOP.UnalignedMemoryController.readLast_3[7:0] (6)TOP.UnalignedMemoryController.readLast_3[7:0] (7)TOP.UnalignedMemoryController.readLast_3[7:0]
+@1001200
+-group_end
+@22
+TOP.UnalignedMemoryController.readAddress[9:0]
+[pattern_trace] 1
+[pattern_trace] 0

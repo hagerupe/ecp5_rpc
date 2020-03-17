@@ -18,6 +18,26 @@ package protobuf;
 import chisel3._
 import chisel3.util.Cat;
 
+
+object VectorShift {
+  def apply(in: Vec[UInt], offset: UInt): Vec[UInt] = {
+    val words = in.size
+    val output = Wire(Vec(in.size, UInt(in(0).asBools.size.W)))
+    for (i <- 0 until words) {
+      output(i) := Cat(in) >> ((words.U - i.U - 1.U - offset) * 8.U)
+    }
+    output
+  }
+}
+
+object VectorSubSequence {
+  def apply(in: Vec[UInt], start: Int, newLength: Int): Vec[UInt] = {
+    val reduced = Wire(Vec(newLength, UInt(in(0).asBools.size.W)))
+    for (i <- 0 until newLength) { reduced(i) := in(i + start) }
+    return reduced
+  }
+}
+
 class OffsetMap(bytes: Int) extends Module {
 
   val io = IO(new Bundle{

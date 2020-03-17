@@ -23,69 +23,31 @@ class Top(add_bit_width: Int,
           bytes: Array[Byte]) extends Module {
 
   val io = IO(new Bundle{
-    val in1  = Input(UInt(2.W))
-    val in2  = Input(UInt(2.W))
-    val out1 = Output(UInt(2.W))
+    val wireType = Output(UInt(3.W))
+    val fieldNumber = Output(UInt(8.W))
+    val keySize = Output(UInt(8.W))
+    val valueSize = Output(UInt(16.W))
+    val valid = Output(Bool())
   })
 
-  val producer0 = Wire(Flipped(Decoupled(UInt(2.W))))
-  val producer1 = Wire(Flipped(Decoupled(UInt(2.W))))
-  val consumer = Wire(Decoupled(UInt(2.W)))
-
-  val arb = Module(new Arbiter(UInt(), 2))
-  arb.io.in(0) <> producer0
-  arb.io.in(1) <> producer1
-  consumer <> arb.io.out
-
-  producer0.bits := 1.U
-  producer1.bits := io.in1
-  producer0.valid := 0.B
-  producer1.valid := io.in2
-  consumer.ready := 1.B
-  io.out1 := consumer.bits
-
-
+  var memory = Module(new UnalignedMemoryController(add_bit_width, word_byte_ct * 8, bytes))
   val abs_read_addr = RegInit(0.U(add_bit_width.W))
 
-  // Message buffer
-  val mem = Mem(math.pow(2, add_bit_width).toInt, Vec(word_byte_ct, UInt(8.W)))
-  for (i <- bytes.indices) { mem(i / word_byte_ct)(i % word_byte_ct) := (bytes(i) & 0xFF).asUInt() }
+  val proto_key = ProtobufKey(memory.io.readData.bits)
+  io.wireType    := proto_key.wire_type
+  io.fieldNumber := proto_key.field_number
+  io.keySize     := proto_key.key_size
+  io.valueSize   := proto_key.value_size
+  io.valid       := memory.io.readData.valid
 
-  // Compute memory address from byte index
-  val read_add_0 = Wire(UInt(add_bit_width.W))
-  val read_add_1 = Wire(UInt(add_bit_width.W))
-  read_add_0 := abs_read_addr >> log2Down(word_byte_ct)
-  read_add_1 := read_add_0 + 1.U
+  memory.io.readData.ready := 1.B // No backpressure, purely combinatorical
 
-  printf("Probe:%d\n", read_add_0)
+  memory.io.readAddress.noenq()
 
-  // Read from both ports, concat result vector
-  val mem_rd_0 = Wire(Vec(word_byte_ct, UInt(8.W)))
-  val mem_rd_1 = Wire(Vec(word_byte_ct, UInt(8.W)))
-  val mem_rd = Wire(Vec(word_byte_ct * 2, UInt(8.W)))
-  mem_rd_0 := mem.read(read_add_0)
-  mem_rd_1 := mem.read(read_add_1)
-
-  for (i <- 0 until word_byte_ct) {
-    mem_rd(i) := mem_rd_0(i)
-    mem_rd(i + word_byte_ct) := mem_rd_1(i)
+  when (memory.io.readData.valid) {
+    abs_read_addr := abs_read_addr + proto_key.key_size + proto_key.value_size
+  }.
+  elsewhen(memory.io.readAddress.ready) {
+    memory.io.readAddress.enq(abs_read_addr)
   }
-
-  // Align to byte offset based on absolute address
-  val shifted = Wire(Vec(word_byte_ct * 2, UInt(8.W)))
-  val map_shift = Module(new OffsetMap(word_byte_ct * 2))
-  map_shift.io.input := mem_rd
-  map_shift.io.offset := (abs_read_addr % word_byte_ct.U)
-  shifted := map_shift.io.output
-  val reduced = Wire(Vec(word_byte_ct, UInt(8.W)))
-  for (i <- 0 until word_byte_ct) { reduced(i) := shifted(i) }
-
-  printf("Shift:    %d\n", map_shift.io.offset)
-  printf("Top:mem:   %x\n", Cat(mem_rd))
-  printf("Top:shift: %x\n", Cat(shifted))
-
-  // First key decoder
-  val proto_key = ProtobufKey(reduced)
-
-  abs_read_addr := abs_read_addr + proto_key.key_size + proto_key.value_size
 }
